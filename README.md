@@ -33,39 +33,39 @@ To get a local copy up and running, follow these simple steps.
    cd blog_project_batch_15
    ```
 
-2.Install dependencies:
+2. **Install dependencies**:
 ```bash
 - composer install
 - npm install
 - npm run dev
 ```
 
-3.Copy the example environment file and configure it:
+3. **Copy the example environment file and configure it**:
 ```bash
 - cp .env.example .env
 ```
 
-4.Generate an application key:
+4. **Generate an application key**:
 ```bash
 - php artisan key:generate
 ```
 
-5.Run the database migrations:
+5. **Run the database migrations**:
 ```bash
 - php artisan migrate
 ```
 
-6.Seed the database with test data (optional):
+6. **Seed the database with test data (optional)**:
 ```bash
 - php artisan db:seed
 ```
 
-7.Start the development server:
+7. **Start the development server**:
 ```bash
 - php artisan serve
 ```
 
-8.Access the application:
+8. **Access the application**:
 ```bash
 - Open your browser and go to http://localhost:8000.
 ```
