@@ -31,42 +31,59 @@ To get a local copy up and running, follow these simple steps.
    ```bash
    git clone https://github.com/Faiaz1997/blog_project_batch_15.git
    cd blog_project_batch_15
+   ```
 
 2.Install dependencies:
+```bash
 - composer install
 - npm install
 - npm run dev
+```
 
 3.Copy the example environment file and configure it:
+```bash
 - cp .env.example .env
+```
 
 4.Generate an application key:
+```bash
 - php artisan key:generate
+```
 
 5.Run the database migrations:
+```bash
 - php artisan migrate
+```
 
 6.Seed the database with test data (optional):
+```bash
 - php artisan db:seed
+```
 
 7.Start the development server:
+```bash
 - php artisan serve
+```
 
 8.Access the application:
+```bash
 - Open your browser and go to http://localhost:8000.
+```
 
 ## Usage
 
-- **Admin Panel**:
+1. Admin Panel:  
 - URL: /admin
-Features:
+  
+- **Features**:
 - Manage blog posts
 - Manage categories
 - Manage comments
 
-- **Blog Frontend**:
+2. Blog Frontend: 
 - URL: /
-Features:
+  
+- **Features**:
 - View all blog posts
 - Search for posts
 - View post details
