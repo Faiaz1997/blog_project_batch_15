@@ -1,6 +1,6 @@
 @extends('frontEnd.master');
 @section('title')
-    ZenBlog
+ZenBlog
 @endsection
 @section('content');
 
@@ -9,44 +9,24 @@
     <div class="container-md" data-aos="fade-in">
         <div class="row">
             <div class="col-12">
+
                 <div class="swiper sliderFeaturedPosts">
+
                     <div class="swiper-wrapper">
+                        @foreach($blogs as $blog)
+                        @if($blog->blog_type == 'Trending')
                         <div class="swiper-slide">
-                            <a href="" class="img-bg d-flex align-items-end" style="background-image: url('{{asset('frontEndAsset')}}/assets/img/post-slide-1.jpg');">
+                            <a href="" class="img-bg d-flex align-items-end" style="background-image: url('{{asset($blog->image)}}');">
                                 <div class="img-bg-inner">
-                                    <h2>The Best Homemade Masks for Face (keep the Pimples Away)</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                                    <h2>{{$blog->title}}</h2>
+                                    <p>{{ substr($blog->description, 0, 200) }}</p>
                                 </div>
                             </a>
                         </div>
-
-                        <div class="swiper-slide">
-                            <a href="" class="img-bg d-flex align-items-end" style="background-image: url('{{asset('frontEndAsset')}}/assets/img/post-slide-2.jpg');">
-                                <div class="img-bg-inner">
-                                    <h2>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="" class="img-bg d-flex align-items-end" style="background-image: url('{{asset('frontEndAsset')}}/assets/img/post-slide-3.jpg');">
-                                <div class="img-bg-inner">
-                                    <h2>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="" class="img-bg d-flex align-items-end" style="background-image: url('{{asset('frontEndAsset')}}/assets/img/post-slide-4.jpg');">
-                                <div class="img-bg-inner">
-                                    <h2>9 Half-up/half-down Hairstyles for Long and Medium Hair</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
-                                </div>
-                            </a>
-                        </div>
+                        @endif
+                        @endforeach
                     </div>
+
                     <div class="custom-swiper-button-next">
                         <span class="bi-chevron-right"></span>
                     </div>
@@ -55,6 +35,7 @@
                     </div>
 
                     <div class="swiper-pagination"></div>
+
                 </div>
             </div>
         </div>
@@ -66,109 +47,87 @@
     <div class="container" data-aos="fade-up">
         <div class="row g-5">
             <div class="col-lg-4">
+                @foreach($blogs as $blog)
+                @if($blog->blog_type == 'Popular')
                 <div class="post-entry-1 lg">
-                    <a href=""><img src="{{asset('frontEndAsset')}}/assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
-                    <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                    <h2><a href="">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
-                    <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+                    <a href=""><img src="{{asset($blog->image)}}" alt="" class="img-fluid"></a>
+                    <div class="post-meta">
+                        <span>{{$blog->category_name}}</span>
+                        <span class="mx-1">&bullet;
+                        </span> <span class="date">{{$blog->date}}</span>
+                    </div>
+                    <h2><a href="{{route('blog.detail',['slug'=>$blog->slug])}}">{{$blog->title}}</a></h2>
+                    <p class="mb-4 d-block">{{ substr($blog->description, 0, 200) }}</p>
 
-                    <div class="d-flex align-items-center author">
-                        <div class="photo"><img src="{{asset('frontEndAsset')}}/assets/img/person-1.jpg" alt="" class="img-fluid"></div>
+                    <div class="d-flex align-items-start author">
+
                         <div class="name">
-                            <h3 class="m-0 p-0">Cameron Williamson</h3>
+                            <h3 class="m-0 p-0">{{$blog->author_name}}</h3>
                         </div>
                     </div>
                 </div>
-
+                @endif
+                @endforeach
             </div>
 
             <div class="col-lg-8">
                 <div class="row g-5">
-                    <div class="col-lg-8 border-start custom-border">
+                    <div class="col-lg-4 border-start custom-border">
                         @foreach($blogs as $blog)
+                        @if($blog->blog_type == 'Latest')
+                        @if($blog->id % 2 == 0)
                         <div class="post-entry-1">
                             <a href="#" class="details" id="{{$blog->id}}">
-                                <img src="{{asset($blog->image)}}"  alt="" class="img-fluid" ></a>
+                                <img src="{{asset($blog->image)}}" alt="" class="img-fluid"></a>
                             <div class="post-meta">
-                                <span >{{$blog->category_name}}</span>
+                                <span>{{$blog->category_name}}</span>
                                 <span class="mx-1">&bullet;
-                                </span> <span class="date">{{$blog->date}}</span></div>
+                                </span> <span class="date">{{$blog->date}}</span>
+                            </div>
+                            <h2><a href="{{route('blog.detail',['slug'=>$blog->slug])}}">{{$blog->title}}</a></h2>
+
+                        </div>
+                        @endif
+                        @endif
+                        @endforeach
+                    </div>
+                    <div class="col-lg-4 border-start custom-border">
+                        @foreach($blogs as $blog)
+                        @if($blog->blog_type == 'Latest')
+                        @if($blog->id % 2 !== 0)
+                        <div class="post-entry-1">
+                            <a href="#" class="details" id="{{$blog->id}}">
+                                <img src="{{asset($blog->image)}}" alt="" class="img-fluid"></a>
+                            <div class="post-meta">
+                                <span>{{$blog->category_name}}</span>
+                                <span class="mx-1">&bullet;
+                                </span> <span class="date">{{$blog->date}}</span>
+                            </div>
                             <h2><a href="{{route('blog.detail',['slug'=>$blog->slug])}}">{{$blog->title}}</a></h2>
                         </div>
+                        @endif
+                        @endif
                         @endforeach
-{{--                        <div class="post-entry-1">--}}
-{{--                            <a href=""><img src="{{asset('frontEndAsset')}}/assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>--}}
-{{--                            <div class="post-meta"><span class="date">Food</span> <span class="mx-1">&bullet;</span> <span>Jul 17th '22</span></div>--}}
-{{--                            <h2><a href="">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>--}}
-{{--                        </div>--}}
-{{--                        <div class="post-entry-1">--}}
-{{--                            <a href=""><img src="{{asset('frontEndAsset')}}/assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>--}}
-{{--                            <div class="post-meta"><span class="date">Design</span> <span class="mx-1">&bullet;</span> <span>Mar 15th '22</span></div>--}}
-{{--                            <h2><a href="">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>--}}
-{{--                        </div>--}}
                     </div>
-{{--                    <div class="col-lg-4 border-start custom-border">--}}
-{{--                        <div class="post-entry-1">--}}
-{{--                            <a href=""><img src="{{asset('frontEndAsset')}}/assets/img/post-landscape-3.jpg" alt="" class="img-fluid"></a>--}}
-{{--                            <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>--}}
-{{--                            <h2><a href="">6 Easy Steps To Create Your Own Cute Merch For Instagram</a></h2>--}}
-{{--                        </div>--}}
-{{--                        <div class="post-entry-1">--}}
-{{--                            <a href=""><img src="{{asset('frontEndAsset')}}/assets/img/post-landscape-6.jpg" alt="" class="img-fluid"></a>--}}
-{{--                            <div class="post-meta"><span class="date">Tech</span> <span class="mx-1">&bullet;</span> <span>Mar 1st '22</span></div>--}}
-{{--                            <h2><a href="">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>--}}
-{{--                        </div>--}}
-{{--                        <div class="post-entry-1">--}}
-{{--                            <a href=""><img src="{{asset('frontEndAsset')}}/assets/img/post-landscape-8.jpg" alt="" class="img-fluid"></a>--}}
-{{--                            <div class="post-meta"><span class="date">Travel</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>--}}
-{{--                            <h2><a href="">5 Great Startup Tips for Female Founders</a></h2>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
                     <!-- Trending Section -->
                     <div class="col-lg-4">
-
                         <div class="trending">
                             <h3>Trending</h3>
                             <ul class="trending-post">
+                                @foreach($blogs as $blog)
+                                @if($blog->blog_type == 'Trending')
                                 <li>
                                     <a href="">
-                                        <span class="number">1</span>
-                                        <h3>The Best Homemade Masks for Face (keep the Pimples Away)</h3>
-                                        <span class="author">Jane Cooper</span>
+                                        <span class="number">{{$blog->id}}</span>
+                                        <h3>{{$blog->title}}</h3>
+                                        <span class="author">{{$blog->author_name}}</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="">
-                                        <span class="number">2</span>
-                                        <h3>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</h3>
-                                        <span class="author">Wade Warren</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <span class="number">3</span>
-                                        <h3>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h3>
-                                        <span class="author">Esther Howard</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <span class="number">4</span>
-                                        <h3>9 Half-up/half-down Hairstyles for Long and Medium Hair</h3>
-                                        <span class="author">Cameron Williamson</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <span class="number">5</span>
-                                        <h3>Life Insurance And Pregnancy: A Working Mom’s Guide</h3>
-                                        <span class="author">Jenny Wilson</span>
-                                    </a>
-                                </li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
-
                     </div> <!-- End Trending Section -->
                 </div>
             </div>
@@ -177,8 +136,17 @@
     </div>
 </section> <!-- End Post Grid Section -->
 
+
+
+
+
+/*
+
+
+
+
 <!-- ======= Culture Category Section ======= -->
-<section class="category-section">
+<!-- <section class="category-section">
     <div class="container" data-aos="fade-up">
 
         <div class="section-header d-flex justify-content-between align-items-center mb-5">
@@ -273,10 +241,11 @@
             </div>
         </div>
     </div>
-</section><!-- End Culture Category Section -->
+</section> -->
+<!-- End Culture Category Section -->
 
 <!-- ======= Business Category Section ======= -->
-<section class="category-section">
+<!-- <section class="category-section">
     <div class="container" data-aos="fade-up">
 
         <div class="section-header d-flex justify-content-between align-items-center mb-5">
@@ -370,10 +339,11 @@
             </div>
         </div>
     </div>
-</section><!-- End Business Category Section -->
+</section> -->
+<!-- End Business Category Section -->
 
 <!-- ======= Lifestyle Category Section ======= -->
-<section class="category-section">
+<!-- <section class="category-section">
     <div class="container" data-aos="fade-up">
 
         <div class="section-header d-flex justify-content-between align-items-center mb-5">
@@ -490,7 +460,13 @@
             </div>
 
         </div> <!-- End .row -->
-    </div>
-</section><!-- End Lifestyle Category Section -->
+</div>
+</section> -->
+<!-- End Lifestyle Category Section -->
+
+
+
+
+*/
 
 @endsection
