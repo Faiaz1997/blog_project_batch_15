@@ -138,13 +138,6 @@ ZenBlog
 
 
 
-
-
-/*
-
-
-
-
 <!-- ======= Culture Category Section ======= -->
 <!-- <section class="category-section">
     <div class="container" data-aos="fade-up">
@@ -459,14 +452,12 @@ ZenBlog
                 </div>
             </div>
 
-        </div> <!-- End .row -->
+        </div> 
 </div>
 </section> -->
 <!-- End Lifestyle Category Section -->
 
 
 
-
-*/
 
 @endsection

@@ -1,6 +1,6 @@
 @extends('frontEnd.master')
 @section('title')
-    Contact
+    User Registration
 @endsection
 @section('content')
     <section id="contact" class="contact mb-5">
